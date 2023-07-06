@@ -50,11 +50,9 @@ namespace TradingEngineServer.Core{
             _logger.LogInformation($"Starting {nameof(TradingEngineServer)}");
 
             while (!stoppingToken.IsCancellationRequested){
-              //  _logger.LogInformation("running");
- 
+                //  _logger.LogInformation("running");
 
             }
-
 
             _logger.LogInformation("hfsdfsd\n");
             _logger.LogInformation($"{stoppingToken.IsCancellationRequested}");

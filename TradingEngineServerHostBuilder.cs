@@ -35,9 +35,7 @@ namespace TradingEngineServer.Core{
                 // The type that microsofots library will inherit
                 services.AddHostedService<TradingEngineServer>();
 
-                
-
-
+            
             }).Build();
 
             // .Build() let's us return an instance of IHost
