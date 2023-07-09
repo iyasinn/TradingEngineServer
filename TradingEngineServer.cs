@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Collections.Specialized;
 // This is our configuration file namespace
 using TradingEngineServer.Core.Configuration;
+
+using TradingEngineServer.Logging;
 
 namespace TradingEngineServer.Core{
 
@@ -13,16 +16,16 @@ namespace TradingEngineServer.Core{
 
         // Member variables
         // Storing the logger
-        private readonly ILogger<TradingEngineServer> _logger;
+        private readonly ITextLogger _logger;
         // Storing the configuration
         private readonly TradingEngineServerConfiguration _tradingEngineServerConfig;
 
         // Constructor
-        public TradingEngineServer(ILogger<TradingEngineServer> logger, 
+        public TradingEngineServer(ITextLogger textLogger, 
                                    IOptions<TradingEngineServerConfiguration> config){
 
             // ?? is the null coalescing operator
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = textLogger ?? throw new ArgumentNullException(nameof(textLogger));
         
             // This is injecting the configuration server
             // Value retursn the value of the IOptions 
@@ -49,17 +52,19 @@ namespace TradingEngineServer.Core{
 
             _logger.LogInformation($"Starting {nameof(TradingEngineServer)}");
 
+            int x = 5;
+
             while (!stoppingToken.IsCancellationRequested){
-                //  _logger.LogInformation("running");
+
+                _logger.LogInformation($"{x}");
+                x++;
 
             }
 
-            _logger.LogInformation("hfsdfsd\n");
             _logger.LogInformation($"{stoppingToken.IsCancellationRequested}");
-            _logger.LogInformation($"Stopping {nameof(TradingEngineServer)} boiiii");
+            _logger.LogInformation($"Stopping {nameof(TradingEngineServer)} boiiii\n");
 
             return Task.CompletedTask;
-
         }
     }
 }

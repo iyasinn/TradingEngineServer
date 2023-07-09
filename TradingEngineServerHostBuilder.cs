@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TradingEngineServer.Core.Configuration;
+using TradingEngineServer.Logging;
 
 namespace TradingEngineServer.Core{
 
@@ -30,12 +31,10 @@ namespace TradingEngineServer.Core{
                 // Add singleton objects, whatever these are
                 // You can only have one AddSingleton
                 services.AddSingleton<ITradingEngineServer, TradingEngineServer>();
-
+                services.AddSingleton<ITextLogger>();
                 // Add our hosted service 
                 // The type that microsofots library will inherit
                 services.AddHostedService<TradingEngineServer>();
-
-            
             }).Build();
 
             // .Build() let's us return an instance of IHost

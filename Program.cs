@@ -1,6 +1,4 @@
-﻿using System;
-
-// Top Level Statement to use files from this 
+﻿// Top Level Statement to use files from this 
 using TradingEngineServer.Core;
 
 // Directives that will let you access dependence injection and hosting
@@ -25,3 +23,9 @@ TradingEngineServerServiceProvider.ServiceProvider = engine.Services;
     // What is configure await
     await engine.RunAsync().ConfigureAwait(false);
 }
+
+/*
+ * Async in C# uses Tasks 
+ * Async blocks will have do connection
+ * 
+*/
