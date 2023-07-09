@@ -3,7 +3,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 // This is our configuration file namespace
 using TradingEngineServer.Core.Configuration;
-
+using TradingEngineServer.Logging;
+using TradingEngineServer.Logging.LoggingConfiguration;
 namespace TradingEngineServer.Core{
 
     // Maknig my Trading Engine a background service, and also an ITradingEngineServer
@@ -13,16 +14,17 @@ namespace TradingEngineServer.Core{
 
         // Member variables
         // Storing the logger
-        private readonly ILogger<TradingEngineServer> _logger;
+        //private readonly ILogger<TradingEngineServer> _logger;
+        private readonly ITextLogger _logger; 
         // Storing the configuration
         private readonly TradingEngineServerConfiguration _tradingEngineServerConfig;
 
         // Constructor
-        public TradingEngineServer(ILogger<TradingEngineServer> logger, 
+        public TradingEngineServer(ITextLogger textLogger, 
                                    IOptions<TradingEngineServerConfiguration> config){
 
             // ?? is the null coalescing operator
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _logger = (TextLogger?)(textLogger ?? throw new ArgumentNullException(nameof(textLogger)));
         
             // This is injecting the configuration server
             // Value retursn the value of the IOptions 
@@ -41,22 +43,15 @@ namespace TradingEngineServer.Core{
         // See above
         protected override Task ExecuteAsync(CancellationToken stoppingToken){
 
-            // This toekn is what is passing through to CancellationToken
-        //    CancellationTokenSource cancel = new //CancellationTokenSource();
-       //     cancel.Cancel();
-       //     cancel.Dispose();
-       //     cancel.Token;
 
-            _logger.LogInformation($"Starting {nameof(TradingEngineServer)}");
+            _logger.Information(nameof(TradingEngineServer), "Starting trading engine");
+            Console.WriteLine("Started\n");
 
             while (!stoppingToken.IsCancellationRequested){
-                //  _logger.LogInformation("running");
-
             }
 
-            _logger.LogInformation("hfsdfsd\n");
-            _logger.LogInformation($"{stoppingToken.IsCancellationRequested}");
-            _logger.LogInformation($"Stopping {nameof(TradingEngineServer)} boiiii");
+            _logger.Information(nameof(TradingEngineServer), "Stopping trading engine");
+            Console.WriteLine("Ended\n");
 
             return Task.CompletedTask;
 
