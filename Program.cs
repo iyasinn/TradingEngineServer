@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 // This is an IHost
 using var engine = TradingEngineServerHostBuilder.BuildTradingEngineServer();
 
+
 // We've registerd the tradingEngine server in the host
 // We're getting an object of type IHost when we get BuildTradingEngineServer, and we use services and we put that into ServiceProvider so that way we can always access engine.Services
 TradingEngineServerServiceProvider.ServiceProvider = engine.Services;
@@ -23,5 +24,12 @@ TradingEngineServerServiceProvider.ServiceProvider = engine.Services;
     // Asynchronous programming
     // This takes cancellation tokens, which lets you cancel a long running task, which are being done by different threads 
     // What is configure await
-    await engine.RunAsync().ConfigureAwait(false);
+
+    var processingTask = await Task.Run(async () => engine.RunAsync()).ConfigureAwait(false);
+
+
+
+    // await engine.RunAsync().ConfigureAwait(false);
+
+    //await engine.RunAsync().ConfigureAwait(false);
 }
